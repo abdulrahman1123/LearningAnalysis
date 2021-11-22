@@ -1,25 +1,7 @@
-library(DAAG)
-library(party)
-
-library(mlbench)
-library(caret)
-library(pROC)
-library(tree)
-
-
 library(dplyr)
 library(rpart.plot)
 library(rpart)
 
-path <- 'https://raw.githubusercontent.com/guru99-edu/R-Programming/master/titanic_data.csv'
-data_frame <-read.csv(path)
-data_frame$sex = factor(data_frame$sex, levels = c("female","male"))
-data_frame$age = as.numeric(data_frame$age)
-data_frame$fare = as.numeric(data_frame$fare)
-data_frame$embarked = factor(data_frame$embarked)
-data_frame$pclass = factor(data_frame$pclass, levels = c(1, 2, 3), labels = c('Upper', 'Middle', 'Lower'))
-data_frame$survived = factor(data_frame$survived, levels = c(0, 1), labels = c('No', 'Yes'))
-data_frame = na.omit(data_frame)
 
 
 show_decision_tree = function(data_frame, IVs, DV, perc = 0.8, dc_method = "class", min_split = 4,
@@ -33,6 +15,7 @@ show_decision_tree = function(data_frame, IVs, DV, perc = 0.8, dc_method = "clas
   
   
   data_frame = data_frame[,c(IVs,DV)]
+  data_frame = na.omit(data_frame)
   
   train_inds = sample(1:nrow(data_frame), size = perc*nrow(data_frame))
   train = data_frame[train_inds,]
